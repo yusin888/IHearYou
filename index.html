@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IHearYou</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="icons/favicon.png">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+</head>
+<body class="h-screen w-screen flex flex-col items-center justify-center transition-colors duration-500">
+    <div id="mainContent" class="text-center p-4">
+        <h1 class="text-4xl font-bold mb-6">IHearYou</h1>
+        <div id="status" class="text-xl mb-4">Click Start to begin listening</div>
+        <button id="startBtn" class="bg-green-500 text-white px-6 py-3 rounded-lg text-xl hover:bg-green-600 transition-colors">
+            Start Listening
+        </button>
+    </div>
+
+    <script src="app.js"></script>
+    <script>
+        // Register Service Worker
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(registration => console.log('ServiceWorker registered'))
+                .catch(err => console.log('ServiceWorker registration failed:', err));
+        }
+    </script>
+</body>
+</html>
