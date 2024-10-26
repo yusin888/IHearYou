@@ -4,8 +4,42 @@ document.addEventListener('DOMContentLoaded', () => {
     const body = document.body;
     let recognition = null;
     let speaking = false;
+    let deferredPrompt;
 
-    // Initialize speech recognition
+    // PWA Install Prompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        showInstallButton();
+    });
+
+    function showInstallButton() {
+        const installDiv = document.createElement('div');
+        installDiv.className = 'fixed bottom-4 left-0 right-0 text-center';
+        
+        const installBtn = document.createElement('button');
+        installBtn.className = 'bg-purple-500 text-white px-6 py-3 rounded-lg text-xl hover:bg-purple-600 transition-colors';
+        installBtn.textContent = 'Install App';
+        
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                deferredPrompt = null;
+                installDiv.remove();
+            }
+        });
+
+        installDiv.appendChild(installBtn);
+        document.body.appendChild(installDiv);
+    }
+
+    window.addEventListener('appinstalled', (evt) => {
+        console.log('App installed successfully');
+    });
+
+    // Speech Recognition
     if ('webkitSpeechRecognition' in window) {
         recognition = new webkitSpeechRecognition();
         recognition.continuous = true;
@@ -17,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Initialize speech synthesis
+    // Speech Synthesis
     const speechSynthesis = window.speechSynthesis;
     
     function speak(text) {
@@ -52,8 +86,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     recognition.onend = () => {
-        recognition.start();
-        statusDiv.textContent = 'Listening...';
+        if (isListening) {
+            recognition.start();
+            statusDiv.textContent = 'Listening...';
+        }
     };
 
     // Handle start button
