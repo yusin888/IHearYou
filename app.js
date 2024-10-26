@@ -1,3 +1,8 @@
+// Add error handling
+window.onerror = function (message, source, lineno, colno, error) {
+    console.error("Error occurred: ", message, "at", source, lineno, ":", colno);
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('startBtn');
     const statusDiv = document.getElementById('status');
