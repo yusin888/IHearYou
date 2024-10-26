@@ -12,6 +12,10 @@
     {
       "src": "manifest.json",
       "use": "@vercel/static"
+    },
+    {
+      "src": "icons/*",
+      "use": "@vercel/static"
     }
   ],
   "rewrites": [

@@ -1,13 +1,13 @@
 const CACHE_NAME = 'ihear-you-v1';
 const urlsToCache = [
-    './',
-    './index.html',
-    './app.js',
-    './manifest.json',
-    './icons/favicon.png',
-    './icons/icon-192x192.png',
-    './icons/icon-512x512.png',
-    './icons/apple-touch-icon.png',
+    '/',
+    '/index.html',
+    '/app.js',
+    '/manifest.json',
+    '/icons/favicon.png',
+    '/icons/icon-192x192.png',
+    '/icons/icon-512x512.png',
+    '/icons/apple-touch-icon.png',
     'https://cdn.tailwindcss.com'
 ];
 
